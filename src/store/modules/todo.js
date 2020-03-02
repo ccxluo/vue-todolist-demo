@@ -13,6 +13,11 @@ const actions = {
     commit
   }, id) {
     commit('deleteItem', id);
+  },
+  updateItem({
+    commit
+  }, id) {
+    commit('updateItem', id);
   }
 }
 
@@ -26,6 +31,12 @@ const mutations = {
     if (item) {
       state.items.splice(state.items.indexOf(item), 1);
     }
+  },
+  updateItem(state, id) {
+    state.items = state.items.map(item => {
+      item.isCompleted = item.id === id ? !item.isCompleted : item.isCompleted;
+      return item;
+    });
   }
 }
 

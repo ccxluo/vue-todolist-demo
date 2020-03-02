@@ -1,6 +1,11 @@
 <template>
   <div class="list-item">
-    <input type="checkbox" class="item-checkbox" :checked="item.isCompleted" />
+    <input
+      type="checkbox"
+      class="item-checkbox"
+      :checked="item.isCompleted"
+      @change="onUpdate(item.id)"
+    />
     <div class="item-text">{{item.text}}</div>
     <div class="item-delete" @click="onDelete(item.id)">X</div>
   </div>
@@ -22,6 +27,9 @@ export default {
   methods: {
     onDelete(id) {
       this.$emit('onDelete', id);
+    },
+    onUpdate(id) {
+      this.$emit('onUpdate', id);
     }
   }
 };

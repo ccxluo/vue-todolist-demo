@@ -1,6 +1,12 @@
 <template>
   <div class="list-container" v-if="items.length">
-    <list-item v-for="item in items" :key="item.id" :item="item" @onDelete="deleteItem" />
+    <list-item
+      v-for="item in items"
+      :key="item.id"
+      :item="item"
+      @onDelete="deleteItem"
+      @onUpdate="updateItem"
+    />
   </div>
 </template>
 
@@ -19,8 +25,11 @@ export default {
     })
   },
   methods: {
-    deleteItem: function(id) {
+    deleteItem(id) {
       this.$store.dispatch('todo/deleteItem', id);
+    },
+    updateItem(id) {
+      this.$store.dispatch('todo/updateItem', id);
     }
   }
 };
