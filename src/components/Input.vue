@@ -12,6 +12,7 @@ export default {
   },
   methods: {
     addTodo: function() {
+      this.$store.dispatch('todo/addItem', this.input);
       this.input = '';
     }
   }
