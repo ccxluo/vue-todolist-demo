@@ -1,6 +1,6 @@
 <template>
   <div class="list-container" v-if="items.length">
-    <list-item v-for="item in items" :key="item.id" :item="item" />
+    <list-item v-for="item in items" :key="item.id" :item="item" @onDelete="deleteItem" />
   </div>
 </template>
 
@@ -17,6 +17,11 @@ export default {
     ...mapState({
       items: state => state.todo.items
     })
+  },
+  methods: {
+    deleteItem: function(id) {
+      this.$store.dispatch('todo/deleteItem', id);
+    }
   }
 };
 </script>
