@@ -1,12 +1,29 @@
 <template>
-  <div>I am List</div>
+  <div class="list-container" v-if="items.length">
+    <list-item v-for="item in items" :key="item.id" :item="item" />
+  </div>
 </template>
 
 <script>
+import ListItem from './ListItem';
+import { mapState } from 'vuex';
+
 export default {
-  name: 'List'
+  name: 'List',
+  components: {
+    'list-item': ListItem
+  },
+  computed: {
+    ...mapState({
+      items: state => state.todo.items
+    })
+  }
 };
 </script>
 
-<style scoped>
+<style lang='less' scoped>
+.list-container {
+  background: #fff;
+  border: 1px solid #dcdfe6;
+}
 </style>
