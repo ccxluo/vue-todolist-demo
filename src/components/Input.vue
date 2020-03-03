@@ -1,5 +1,5 @@
 <template>
-  <input placeholder="Please input" v-model="input" @keyup.enter="addTodo" />
+  <input placeholder="What needs to be done?" v-model="input" @keyup.enter="addTodo" />
 </template>
 
 <script>
@@ -42,6 +42,10 @@ input {
   &:focus {
     outline: none;
     border-color: #409eff;
+  }
+
+  &::placeholder {
+    font-style: italic;
   }
 }
 </style>
