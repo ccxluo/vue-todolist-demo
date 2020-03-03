@@ -1,11 +1,15 @@
 <template>
   <div class="list-item">
-    <input
-      type="checkbox"
-      class="item-checkbox"
-      :checked="item.isCompleted"
-      @change="onUpdate(item.id)"
-    />
+    <div class="custom-checkbox">
+      <input
+        :id="checkboxId"
+        type="checkbox"
+        class="item-checkbox"
+        :checked="item.isCompleted"
+        @change="onUpdate(item.id)"
+      />
+      <label :for="checkboxId"></label>
+    </div>
     <div class="item-text">{{item.text}}</div>
     <div class="item-delete" @click="onDelete(item.id)">X</div>
   </div>
@@ -22,6 +26,11 @@ export default {
     deleteItem: {
       type: Function,
       required: false
+    }
+  },
+  computed: {
+    checkboxId: function() {
+      return 'checkbox' + this.item.id;
     }
   },
   methods: {
@@ -46,11 +55,43 @@ export default {
     border-bottom: none;
   }
 
-  .item-checkbox {
-    flex: 1;
-    font-size: 24px;
-    border-radius: 20px;
-    cursor: pointer;
+  .custom-checkbox {
+    flex: 1 0 15px;
+    position: relative;
+
+    input {
+      appearance: none;
+      -webkit-appearance: none;
+      outline: none;
+    }
+
+    input + label {
+      z-index: -1;
+      border: 1px solid #777;
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      display: inline-block;
+      opacity: 0.2;
+      vertical-align: middle;
+    }
+
+    input:checked + label {
+      border: 1px solid #45b97c;
+    }
+
+    input:checked + label::after {
+      content: '';
+      width: 8px;
+      height: 16px;
+      top: 9px;
+      left: 17px;
+      position: absolute;
+      border-right: 1px solid #005344;
+      border-bottom: 1px solid #005344;
+      -webkit-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
   }
 
   .item-text {
