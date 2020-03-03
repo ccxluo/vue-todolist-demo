@@ -3,12 +3,14 @@ import App from './App.vue';
 import store from './store';
 
 import {
-  Input
+  Button,
+  ButtonGroup
 } from 'element-ui';
 
 Vue.config.productionTip = false
 
-Vue.use(Input);
+Vue.use(Button);
+Vue.use(ButtonGroup);
 
 new Vue({
   render: h => h(App),
