@@ -1,36 +1,45 @@
 <template>
-  <div class="footer">
-    <div class="count">3 items left</div>
+  <div class="footer" v-if="isVisible">
+    <div class="count">{{activeItemsCount}} items left</div>
     <div class="operations">
       <button
         class="op-button"
         :class="operation === selectedOperation ? 'active' : ''"
-        v-for="operation in Object.values(operationTypes)"
+        v-for="operation in operationTypes"
         :key="operation"
         @click="onClickOperationBtn(operation)"
       >{{operation}}</button>
     </div>
   </div>
 </template>
-
 <script>
-const OPERATION = {
-  ALL: 'All',
-  ACTIVE: 'Active',
-  COMPLETED: 'Completed'
-};
-
 export default {
   name: 'Footer',
-  data() {
-    return {
-      operationTypes: OPERATION,
-      selectedOperation: OPERATION.ALL
-    };
+  props: {
+    operationTypes: {
+      type: Array,
+      required: true
+    },
+    selectedOperation: {
+      type: String,
+      required: true
+    },
+    onOperationChange: {
+      type: Function,
+      required: false
+    },
+    activeItemsCount: {
+      type: Number,
+      required: true
+    },
+    isVisible: {
+      type: Boolean,
+      default: false
+    }
   },
   methods: {
     onClickOperationBtn(type) {
-      this.selectedOperation = type;
+      this.$emit('onOperationChange', type);
     }
   }
 };
