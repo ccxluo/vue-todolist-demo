@@ -4,32 +4,40 @@
       v-for="item in items"
       :key="item.id"
       :item="item"
-      @onDelete="deleteItem"
-      @onUpdate="updateItem"
+      @onDelete="onDelete(item.id)"
+      @onUpdate="onUpdate(item.id)"
     />
   </div>
 </template>
 
 <script>
 import ListItem from './ListItem';
-import { mapState } from 'vuex';
 
 export default {
   name: 'List',
   components: {
     'list-item': ListItem
   },
-  computed: {
-    ...mapState({
-      items: state => state.todo.items
-    })
+  props: {
+    items: {
+      type: Array,
+      required: true
+    },
+    deleteItem: {
+      type: Function,
+      required: false
+    },
+    updateItem: {
+      type: Function,
+      required: false
+    }
   },
   methods: {
-    deleteItem(id) {
-      this.$store.dispatch('todo/deleteItem', id);
+    onDelete(id) {
+      this.$emit('deleteItem', id);
     },
-    updateItem(id) {
-      this.$store.dispatch('todo/updateItem', id);
+    onUpdate(id) {
+      this.$emit('updateItem', id);
     }
   }
 };
