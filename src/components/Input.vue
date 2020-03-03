@@ -12,12 +12,14 @@ export default {
   },
   methods: {
     addTodo: function() {
-      this.$store.dispatch('todo/addItem', {
-        text: this.input,
-        id: Math.random() * 1000,
-        isCompleted: false
-      });
-      this.input = '';
+      if (this.input !== '') {
+        this.$store.dispatch('todo/addItem', {
+          text: this.input,
+          id: Math.random() * 1000,
+          isCompleted: false
+        });
+        this.input = '';
+      }
     }
   }
 };
